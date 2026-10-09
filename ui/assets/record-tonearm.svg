@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 214" fill="none">
+  <defs>
+    <linearGradient id="base" x1="87" y1="11" x2="121" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".27" stop-color="#CCD8DC"/>
+      <stop offset=".6" stop-color="#8B9DA6"/><stop offset=".82" stop-color="#F3F7F8"/>
+      <stop offset="1" stop-color="#A5B5BB"/>
+    </linearGradient>
+    <linearGradient id="knob" x1="95" y1="21" x2="114" y2="39" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDFEFE"/><stop offset=".4" stop-color="#D3DEE2"/><stop offset="1" stop-color="#82959E"/>
+    </linearGradient>
+    <linearGradient id="rod" x1="63" y1="90" x2="76" y2="99" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6F838E"/><stop offset=".23" stop-color="#E2ECEF"/>
+      <stop offset=".46" stop-color="#FFFFFF"/><stop offset=".72" stop-color="#B7C6CC"/><stop offset="1" stop-color="#748993"/>
+    </linearGradient>
+    <linearGradient id="shell" x1="-8" y1="6" x2="9" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset=".35" stop-color="#D8E3E7"/><stop offset=".7" stop-color="#A2B5BF"/><stop offset="1" stop-color="#E5EDF0"/>
+    </linearGradient>
+    <linearGradient id="counterweight" x1="95" y1="34" x2="113" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AABAC1"/><stop offset=".3" stop-color="#F4F8F9"/><stop offset=".7" stop-color="#C7D4DA"/><stop offset="1" stop-color="#7C929D"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="170%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="2" dy="4" stdDeviation="2.1" flood-color="#1E3B4B" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <circle cx="104" cy="30" r="21.5" fill="#83969F" fill-opacity=".25"/>
+    <circle cx="104" cy="30" r="20" fill="url(#base)" stroke="#F7FAFB" stroke-width=".8"/>
+    <circle cx="104" cy="30" r="16.8" stroke="#7A8F9A" stroke-opacity=".48" stroke-width=".6"/>
+    <circle cx="104" cy="30" r="13" fill="url(#knob)" stroke="#EDF4F7" stroke-width=".7"/>
+    <path d="M93 20.5C98 15.4 107.3 15.6 112.6 20.8" stroke="white" stroke-opacity=".88" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M105 29L103 76C102.8 82.5 100.4 89.1 96.2 94.7L49 156.2" stroke="#6D818D" stroke-width="8.2" stroke-linecap="round"/>
+    <path d="M105 29L103 76C102.8 82.5 100.4 89.1 96.2 94.7L49 156.2" stroke="url(#rod)" stroke-width="6.7" stroke-linecap="round"/>
+    <path d="M104 35L102 75.5C101.7 82 99.5 88 95.4 93.6L48.7 154.5" stroke="#FFFFFF" stroke-opacity=".82" stroke-width=".85" stroke-linecap="round"/>
+    <rect x="95.5" y="35" width="18.5" height="11.5" rx="4.1" fill="url(#counterweight)" stroke="#879DA8" stroke-width=".5" transform="rotate(2.5 104 40.7)"/>
+    <path d="M98 38H111M98 40.5H111M98 43H111" stroke="#758C99" stroke-opacity=".3" stroke-width=".55" stroke-linecap="round"/>
+    <circle cx="104" cy="30" r="4.3" fill="url(#knob)" stroke="#F5F9FA" stroke-width=".65"/>
+    <circle cx="104" cy="30" r="1.3" fill="#738994"/>
+    <g transform="translate(48 154) rotate(36)">
+      <rect x="-6.4" y="-3" width="12.8" height="9" rx="2.8" fill="#8BA0AD"/>
+      <rect x="-7.8" y="2" width="16.3" height="27" rx="3" fill="url(#shell)" stroke="#839AA6" stroke-width=".7"/>
+      <path d="M-5.4 5H5.9" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M-4 10.7H4.6M-4 14.2H4.6M-4 17.7H4.6" stroke="#768D9A" stroke-opacity=".58" stroke-width=".7" stroke-linecap="round"/>
+      <path d="M8.4 10.5H13.9C16 10.5 16 14 14.1 14H8.4" stroke="#DCE7EC" stroke-width="2.1" stroke-linecap="round"/>
+      <rect x="-5.4" y="23.6" width="11.8" height="9.5" rx="1.8" fill="#526A77"/>
+      <path d="M-3.9 25.1H4.5" stroke="#A0B6C1" stroke-width=".8" stroke-linecap="round"/>
+      <path d="M.1 32.7L-.7 37.1" stroke="#BC9769" stroke-width="1.4" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
