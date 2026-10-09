@@ -1,0 +1,104 @@
+/* Album-led light player. Both pages share one session and one sliding track. */
+.playerShell{display:flex;flex-direction:column;padding:54px 0 22px;overflow:hidden;z-index:16;color:var(--album-ink,#182622);background:var(--album-base,#fbfaf7);--player-accent:var(--album-accent,#008d6d)}
+.playerShell::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 4%,var(--album-mid) 0,transparent 54%),linear-gradient(180deg,var(--album-top) 0%,var(--album-top) 12%,var(--album-mid) 36%,var(--album-base) 62%);filter:none;transform:none;opacity:1;pointer-events:none;z-index:0}
+.playerShell::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 0% 45%,#ffffff26,transparent 56%);pointer-events:none;z-index:0}
+.playerShell .playerbar{position:relative;flex:0 0 43px;margin:0;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:2}
+.playerShell .barLeft,.playerShell .barRight{display:flex;align-items:center;flex:1;gap:10px}
+.playerShell .barRight{justify-content:flex-end}
+.playerShell .playerClose,.playerShell .playerMore{display:grid;place-items:center;width:32px;height:40px;padding:3px;flex-shrink:0;color:var(--album-ink);opacity:.75}
+.playerShell .playerbar .ic{width:23px;height:23px;stroke-width:1.5}
+.playerTabs{display:none}
+.playerTabs button{display:flex;align-items:center;justify-content:center;gap:5px;font-size:9px;padding:10px 4px;color:var(--album-muted);opacity:.6;transition:opacity .25s}
+.playerTabs button i{width:4px;height:4px;display:block;border-radius:4px;background:currentColor;transition:width .3s}
+.playerTabs button[aria-selected="true"]{opacity:1;color:var(--album-ink)}
+.playerTabs button[aria-selected="true"] i{width:13px}
+.playerTabs button span{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+.playerPager{position:relative;flex:1;min-height:0;overflow:hidden;touch-action:pan-y;container-type:size;z-index:1;outline:none}
+.playerPages{display:flex;width:100%;height:100%;will-change:transform}
+.playerPage{flex:0 0 100%;width:100%;height:100%;min-width:0;min-height:0;box-sizing:border-box;position:relative;display:flex;flex-direction:column;overflow:hidden;padding:16px 27px 4px}
+.playerPage[aria-hidden="true"]{pointer-events:none}
+.playerShell button:focus-visible,.playerPager:focus-visible,.lyricrows:focus-visible{outline:2px solid var(--album-accent);outline-offset:2px}
+.playerPager[data-swiping="true"]{user-select:none;-webkit-user-select:none}
+.coverPage{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
+.coverPage::-webkit-scrollbar{display:none}
+.playerShell .coverPage .art{position:relative;display:block;width:min(100%,310px);height:clamp(220px,52cqh,314px);min-height:0;flex-shrink:0;margin:8px auto 19px;border-radius:0;background:none;box-shadow:none;overflow:visible;padding:0}
+.playerShell .ptitle{margin:0;padding-right:43px;position:relative;flex-shrink:0}
+.playerShell .ptitle h2{margin:0 0 7px;font-size:23px;font-weight:700;line-height:1.2;letter-spacing:-.7px;color:var(--album-ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.playerShell .ptitle small{font-size:11px;line-height:1.5;color:var(--album-muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.playerShell .playerlike{position:absolute;right:-4px;top:0;float:none;color:var(--album-ink);opacity:.65;padding:3px;width:35px;height:35px;display:grid;place-items:center}
+.playerShell .playerlike .ic{width:29px;height:29px;stroke-width:1.4}
+.playerShell .playerlike.liked{color:#00a97d;opacity:1}
+.playerShell .playerNav{margin:13px 0 0;display:flex;justify-content:space-between;gap:7px;flex-shrink:0;align-items:center}
+.playerShell .source,.playerShell .citylink{display:flex;align-items:center;gap:5px;font-size:9px;padding:6px 8px;border:1px solid color-mix(in srgb,var(--album-ink) 10%,transparent);color:var(--album-muted);background:#ffffff32;border-radius:20px;white-space:nowrap}
+.playerShell .source{max-width:calc(100% - 78px);margin:0;overflow:hidden;text-overflow:ellipsis}
+.playerShell .source .ic{width:11px;height:11px;flex-shrink:0}
+.playerShell .source .radioIcon{color:#00a87b}
+.playerShell .source .chevronIcon{width:8px;height:8px;opacity:.5}
+.playerShell .citylink .ic{width:10px;height:10px}
+.albumCaption{font-size:10px;color:var(--album-muted);opacity:.68;line-height:1.5;margin-top:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+.lyricsPeek{display:block;text-align:left;margin:13px 0 0;padding:0;border:0;background:none;width:100%;flex-shrink:0;min-height:52px;color:var(--album-muted)}
+.lyricsPeek .previewLine{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:12px;line-height:1.5}
+.lyricsPeek .previewTranslation{font-size:10px;line-height:1.4;display:block;opacity:.65;margin-top:3px}
+.lyricsPeek .previewTranslation:empty{display:none}
+.lyricsPeek .peekHint{display:flex;justify-content:space-between;align-items:center;font-size:8px;letter-spacing:.1px;opacity:.58;margin-top:9px}
+.lyricsPage{padding-top:22px}
+.lyricHeading{display:flex;align-items:center;position:relative;flex-shrink:0;padding-right:40px}
+.lyricHeadingText{min-width:0}
+.lyricHeading h2{margin:0 0 9px;font-size:22px;line-height:1.26;font-weight:700;letter-spacing:-.6px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--album-ink)}
+.lyricHeading small{font-size:11px;line-height:1.5;color:var(--album-muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.playerShell .lyricTools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:13px 0 0;min-height:24px;flex-shrink:0}
+.playerShell .demoTag{margin:0;font-size:8px;color:var(--album-muted);opacity:.65}
+.playerShell .lyricFollow{font-size:9px;padding:5px 8px;background:#ffffff38;color:var(--album-muted);border:1px solid color-mix(in srgb,var(--album-ink) 9%,transparent)}
+.playerShell .lyricFollow.browsing{color:#008c69;background:#def5e8;border-color:#b8e1cf}
+.playerShell .lyricStage{position:relative;flex:1;min-height:70px;margin:5px -14px 0;overflow:hidden}
+.playerShell .lyricStage .lyricrows{position:relative;height:100%;margin:0;padding:var(--lyric-pad,130px) 14px;overflow:auto;overscroll-behavior:contain;scroll-behavior:auto;touch-action:pan-y;scrollbar-width:none;mask-image:linear-gradient(transparent,#000 10%,#000 80%,transparent);-webkit-mask-image:linear-gradient(transparent,#000 10%,#000 80%,transparent);outline:none}
+.playerShell .lyricLine{position:relative;display:block;width:100%;margin:0 0 24px;padding:8px 0;min-height:52px;font-size:22px;font-weight:500;line-height:1.6;text-align:left;overflow-wrap:anywhere;color:color-mix(in srgb,var(--album-ink) 40%,transparent);transform-origin:left center;transition:color .36s,transform .36s}
+.playerShell .lyricLine.current{font-size:22px;font-weight:650;color:var(--album-ink);transform:scale(1.01);text-shadow:none}
+.playerShell .lyricLine.current::before{content:'';position:absolute;left:-12px;top:16px;width:3px;height:17px;border-radius:3px;background:#00be89}
+.playerShell[data-city="losangeles"] .lyricLine{font-size:20px;line-height:1.5}
+.playerShell .lyricLine .translation{display:block;margin-top:7px;font-size:13px;line-height:1.6;font-weight:400;color:inherit;opacity:.8}
+.playerShell .lyricLine[aria-current="true"] .translation{color:var(--album-ink);opacity:.8}
+.playerShell .lyricEmpty{text-align:center;font-size:16px;line-height:2;color:var(--album-muted)}
+.playerShell .lyricEmpty small{font-size:11px;opacity:.7}
+.playerShell>.transport{position:relative;left:auto;right:auto;bottom:auto;margin:0;padding:9px 28px 0;flex-shrink:0;z-index:2;background:var(--album-base);color:var(--album-ink)}
+.playerShell[data-page="player"]>.transport{transform:translateY(-48px)}
+.transportMain{height:124px;overflow:hidden;opacity:1;transition:height .36s cubic-bezier(.22,.75,.15,1),opacity .2s}
+.playerShell .seek,.mapMiniPlayer .seek{display:block;width:100%;height:20px;margin:0;cursor:pointer;touch-action:none;appearance:none;-webkit-appearance:none;background:linear-gradient(to right,var(--album-ink) var(--progress,0%),color-mix(in srgb,var(--album-ink) 20%,transparent) var(--progress,0%)) center/100% 2px no-repeat;border:0;border-radius:0;padding:0}
+.playerShell .seek::-webkit-slider-thumb,.mapMiniPlayer .seek::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:8px;height:8px;border-radius:50%;background:var(--album-ink);box-shadow:none}
+.playerShell .seek::-moz-range-thumb,.mapMiniPlayer .seek::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:var(--album-ink)}
+.playerShell .times,.mapMiniPlayer .times{display:flex;justify-content:space-between;margin:0 1px;font-size:10px;color:var(--album-muted);font-variant-numeric:tabular-nums}
+.playerShell .controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 0;height:74px}
+.playerShell .controls>button{width:34px;height:42px;padding:4px;display:grid;place-items:center;color:var(--album-ink)}
+.playerShell .controls .ic{width:25px;height:25px;stroke-width:1.65}
+.playerShell .controls .bigplay{width:65px;height:65px;border-radius:50%;border:1.3px solid var(--album-ink);background:transparent;color:var(--album-ink);box-shadow:none}
+.playerShell .controls .bigplay .ic{width:29px;height:29px}
+.playerShell .playIcon,.playerShell .pauseIcon,.mapMiniPlayer .playIcon,.mapMiniPlayer .pauseIcon{fill:currentColor;stroke:none}
+.playerShell .controls button[aria-pressed="true"]{color:#00a077}
+.lyricActionRow{display:flex;align-items:center;justify-content:space-between;gap:12px;height:0;opacity:0;overflow:hidden;pointer-events:none;transition:height .36s cubic-bezier(.22,.75,.15,1),opacity .24s}
+.lyricActionRow>button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:35px;min-height:44px;padding:2px;color:var(--album-muted)}
+.lyricActionRow .ic{width:20px;height:20px;stroke-width:1.4}
+.lyricActionRow small{font-size:8px;font-weight:400}
+.translationGlyph{border:1px solid currentColor;border-radius:6px;display:grid;place-items:center;width:24px;height:24px;font-size:14px;line-height:1}
+.lyricActionRow button[aria-pressed="true"]{color:var(--album-ink)}
+.lyricActionRow .lyricsRoundPlay{width:47px;height:47px;border-radius:50%;background:var(--album-ink);color:var(--album-base);margin-left:9px}
+.lyricActionRow .lyricsRoundPlay .ic{width:22px;height:22px}
+.playerShell[data-page="lyrics"] .transportMain{height:0;opacity:0;pointer-events:none}
+.playerShell[data-page="lyrics"] .lyricActionRow{height:64px;opacity:1;pointer-events:auto}
+.transportMeta{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:25px;margin-top:4px;font-size:8px;color:var(--album-muted);opacity:.72}
+.transportMeta button{padding:5px 2px;font-size:9px;color:var(--album-muted)}
+.transportMeta .pageHint{display:flex;align-items:center;gap:5px}
+.transportMeta .pageHint i{width:3px;height:3px;border-radius:50%;background:#00a87b}
+.playerShell>.homeIndicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:128px;height:4px;background:var(--album-ink);opacity:.85;border-radius:5px;margin:0;z-index:3}
+.screenTransitionGhost{position:absolute;inset:0;z-index:15;pointer-events:none;overflow:hidden;border-radius:inherit}
+.screenTransitionGhost>.screen{height:100%;pointer-events:none}
+.overlay{animation:playerOverlayIn .18s ease-out both}
+.overlay .sheet{animation:playerSheetIn .32s cubic-bezier(.22,.75,.15,1) both}
+.overlay.is-closing{pointer-events:none;animation:playerOverlayOut .2s ease-in both}
+.overlay.is-closing .sheet{animation:playerSheetOut .22s cubic-bezier(.4,0,.8,.4) both}
+@keyframes playerOverlayIn{from{opacity:0}to{opacity:1}}
+@keyframes playerOverlayOut{from{opacity:1}to{opacity:0}}
+@keyframes playerSheetIn{from{transform:translateY(45px);opacity:.4}to{transform:translateY(0);opacity:1}}
+@keyframes playerSheetOut{to{transform:translateY(65px);opacity:0}}
+@media(max-width:430px){.playerShell{padding-top:max(52px,calc(env(safe-area-inset-top,0px) + 17px));padding-bottom:max(22px,env(safe-area-inset-bottom,0px))}}
+@media(max-height:760px){.playerPage{padding-top:8px}.playerShell .coverPage .art{height:clamp(190px,48cqh,270px);width:min(100%,270px);margin-top:0;margin-bottom:13px}.playerShell .playerNav{margin-top:9px}.albumCaption{margin-top:8px}.lyricsPeek{margin-top:9px}.playerShell .ptitle h2{font-size:21px}.playerShell[data-page="player"]>.transport{transform:translateY(-40px)}.transportMain{height:113px}.playerShell .controls{height:66px;margin-top:7px}.playerShell .controls .bigplay{width:58px;height:58px}.lyricsPage{padding-top:14px}}
+@media(prefers-reduced-motion:reduce){.playerPages,.playerTabs button,.playerShell .lyricLine,.transportMain,.lyricActionRow{transition:none!important}.overlay,.overlay .sheet,.overlay.is-closing,.overlay.is-closing .sheet{animation:none!important}}

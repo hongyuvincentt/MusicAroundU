@@ -1,0 +1,220 @@
+/* Acrylic record player. Load after player.css; parent may set --record-size.
+ * Artwork: .recordLabel > img.trackArtwork. Tonearm span is intentionally empty.
+ * Keep the disc node mounted and toggle data-playing on .playerShell to pause
+ * its animation without resetting the current rotation angle.
+ */
+.playerShell .coverPage .art.recordDeck {
+  --record-tint: var(--record-color, var(--album-top, #d4a560));
+  position: relative;
+  display: block;
+  width: min(100%, var(--record-size, min(49cqh, 310px)));
+  height: auto;
+  aspect-ratio: 1;
+  padding: 0;
+  isolation: isolate;
+  overflow: visible;
+  border: 0;
+  border-radius: 27px;
+  background: transparent;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.recordDeck > span {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+}
+
+.recordDeck .deckGlass {
+  inset: 2% 1.5% 3.5%;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #ffffffc9;
+  border-radius: 25px;
+  background:
+    linear-gradient(133deg, #ffffffb8 0%, #f9fdff84 39%, #e3eef15e 68%, #ffffff9e 100%);
+  box-shadow:
+    inset 0 1px 0 #fffffffa,
+    inset 1px 0 0 #ffffff7d,
+    inset 0 -2px 1px #ffffffb8,
+    inset -1px 0 1px #d4e5e677,
+    0 18px 34px -20px #031c4554,
+    0 5px 9px -5px #263d4140;
+  backdrop-filter: blur(18px) saturate(.78);
+  -webkit-backdrop-filter: blur(18px) saturate(.78);
+}
+
+.recordDeck .deckGlass::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #ffffff52;
+  border-radius: 18px;
+  box-shadow: inset 0 1px 1px #edf8fa54, 0 1px 0 #ffffff42;
+}
+
+.recordDeck .deckGlass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 7.7% 8%, #ffffffea 0 1px, #91a6b338 1.2px 2px, transparent 2.3px),
+    radial-gradient(circle at 92.2% 8%, #ffffffea 0 1px, #91a6b338 1.2px 2px, transparent 2.3px),
+    radial-gradient(circle at 7.7% 92%, #ffffffd9 0 1px, #91a6b331 1.2px 2px, transparent 2.3px),
+    radial-gradient(circle at 92.2% 92%, #ffffffd9 0 1px, #91a6b331 1.2px 2px, transparent 2.3px),
+    linear-gradient(116deg, transparent 29%, #ffffff2b 39%, #ffffff08 47%, transparent 56%);
+}
+
+.recordDeck .recordDisc {
+  left: 43.5%;
+  top: 47.5%;
+  width: 76%;
+  height: auto;
+  aspect-ratio: 1;
+  z-index: 1;
+  box-sizing: border-box;
+  border: 1px solid #fff5;
+  border-radius: 50%;
+  background-color: #dfb8739c;
+  background-image:
+    repeating-radial-gradient(circle at center, #ffffff26 0 .55px, #79674312 .8px 1.35px, transparent 1.65px 3.4px),
+    conic-gradient(from 23deg, #fff0 0deg, #ffffff75 31deg, #fff0 61deg, #503d2b0d 108deg, #ffffff52 176deg, #fff0 208deg, #ffffff2e 289deg, #fff0 331deg),
+    radial-gradient(circle at 32% 24%, #fff7, #fff0 64%);
+  background-color: color-mix(in srgb, var(--record-tint) 69%, transparent);
+  box-shadow:
+    inset 0 0 0 3px #ffffff1c,
+    inset 0 0 0 8px #4f4f3a0b,
+    inset 0 0 0 9px #ffffff30,
+    inset 0 -1px 2px #584e302b,
+    0 0 0 1px #ebf4e95e,
+    0 10px 16px -8px #263d403a;
+  transform: translate(-50%, -50%) rotate(0turn);
+  transform-origin: center;
+  animation: mauRecordSpin 34s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.recordDeck .recordDisc::before {
+  content: '';
+  position: absolute;
+  inset: 5.5%;
+  border: 1px solid #ffffff6b;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px #6e6b4720,
+    inset 0 0 0 1px #6e6b4714,
+    inset 0 0 0 11px #ffffff06;
+}
+
+.recordDeck .recordLabel {
+  position: absolute;
+  display: block;
+  inset: 21%;
+  z-index: 2;
+  overflow: hidden;
+  border: 3px solid #f7f6e8a8;
+  border-radius: 50%;
+  background: #e9e7dc;
+  box-shadow: 0 0 0 1px #77755e2a, 0 0 0 5px #ffffff1f, 0 2px 5px #1e332322;
+}
+
+.recordDeck .recordLabel .trackArtwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.recordDeck .recordLabel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ffffff20, transparent 49%, #14212718);
+  pointer-events: none;
+}
+
+.recordDeck .recordDisc::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 2.4%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 25%, #ffffff 0 12%, #b8c8cc 32%, #536771 67%, #e2eaec 85%);
+  box-shadow: 0 1px 3px #051d4852, 0 0 0 1px #e9f0eca6;
+}
+
+.recordDeck .recordArm {
+  top: 5.5%;
+  right: 3.5%;
+  width: 39%;
+  height: auto;
+  aspect-ratio: 144 / 214;
+  z-index: 3;
+  background: url('assets/record-tonearm.svg') center / 100% 100% no-repeat;
+  transform-origin: 72.2222% 14.0187%;
+  transform: rotate(-18deg);
+  transition: transform 850ms cubic-bezier(.22, .61, .25, 1);
+}
+
+.recordDeck .deckSignature {
+  left: 9%;
+  bottom: 8.6%;
+  z-index: 2;
+  color: #35545b9c;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 1.7px;
+  text-shadow: 0 1px 0 #ffffff91;
+}
+
+.playerShell[data-playing='true'] .recordDeck .recordDisc {
+  animation-play-state: running;
+}
+
+.playerShell[data-playing='true'] .recordDeck .recordArm {
+  transform: rotate(-3deg);
+}
+
+@keyframes mauRecordSpin {
+  from { transform: translate(-50%, -50%) rotate(0turn); }
+  to { transform: translate(-50%, -50%) rotate(1turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recordDeck .recordDisc,
+  .playerShell[data-playing='true'] .recordDeck .recordDisc {
+    animation: none;
+    will-change: auto;
+  }
+  .recordDeck .recordArm,
+  .playerShell[data-playing='true'] .recordDeck .recordArm {
+    transform: rotate(0deg);
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .recordDeck .deckGlass {
+    background: #e9eff0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

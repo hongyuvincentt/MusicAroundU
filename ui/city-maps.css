@@ -1,0 +1,61 @@
+/* Real Google map, city-local clock and overlays. Keep Google's attribution unobscured. */
+.mapScreen{background:#e7eff0;--map-ink:#193b46;--map-muted:#668087;--map-glass:#ffffffe3;--map-line:#ffffffb0;color:var(--map-ink)}
+.mapScreen .mapcanvas{bottom:25px;background:#dfece8;touch-action:auto}
+.googleMapMount{position:absolute;inset:0;z-index:1;visibility:hidden}
+.imageMapMount{position:absolute;inset:0;z-index:1;visibility:hidden}
+.mapcanvas[data-provider="image"] .imageMapMount{visibility:visible}
+.mapcanvas[data-provider="google"] .googleMapMount{visibility:visible}
+.mapcanvas[data-provider="google"]>.mapWorld{display:none}
+.mapcanvas[data-provider="image"]>.mapWorld{display:none}
+.mapSourceBadge{position:absolute;top:282px;left:18px;z-index:4;pointer-events:none;font-size:9px;letter-spacing:.3px;color:var(--map-muted);padding:5px 9px;border-radius:12px;background:var(--map-glass);border:1px solid var(--map-line)}
+.mapScreen .mapWorld{touch-action:none;cursor:grab}
+.mapScreen .mapWorld:active{cursor:grabbing}
+.mapScreen .mapPlayer{bottom:62px;z-index:4;background:var(--map-glass);color:var(--map-ink)}
+.mapScreen .glass{background:var(--map-glass);border-color:var(--map-line)}
+.mapScreen .mapTop{z-index:4;color:var(--map-ink)}
+.mapScreen .mapTop .circle{background:var(--map-glass);color:var(--map-ink)}
+.mapScreen .citychip,.mapScreen .locchip,.mapScreen .mapSongList{z-index:4}
+.mapScreen .citychip{max-width:190px}
+.mapScreen .locchip{max-width:calc(100% - 36px)}
+.mapScreen[data-source="image"] .locchip{color:var(--map-muted);max-width:calc(100% - 214px)}
+.mapScreen[data-source="image"] .mapSongList{top:146px;left:auto;right:18px;padding:8px 10px;font-size:10px}
+.mapScreen[data-source="image"] .landmarkRail{top:192px}
+.mapScreen[data-source="image"] .mapSourceBadge{top:236px}
+.mapScreen[data-source="image"] .mapTop .circle{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.mapScreen[data-source="image"] .mapPlayer{box-shadow:0 12px 36px #14374429;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.mapScreen[data-source="image"][data-phase="night"] .mapcanvas::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,#081f2b66, #081f2b25 150px,transparent 280px)}
+.mapScreen .mapSongList{color:var(--map-ink)}
+.mapScreen .mapBtns{bottom:280px;z-index:4;gap:9px}
+.mapScreen .mapBtns .circle,.mapScreen .zoomPair{background:var(--map-glass);color:var(--map-ink);border:1px solid var(--map-line)}
+.mapScreen .mapTypeButton{font-size:10px;font-weight:600;width:39px;height:39px}
+.mapScreen .mapTypeButton[aria-pressed="true"]{color:#008b70;border-color:#15b794}
+.mapScreen .homeIndicator{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:5px;background:var(--map-ink);color:var(--map-ink)!important;z-index:4}
+.cityClock{position:absolute;top:98px;right:17px;z-index:4;border-radius:16px;padding:8px 11px;min-width:116px;text-align:right;pointer-events:none}
+.cityClock b{font-size:19px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.7px}
+.cityClock .clockPhase{font-size:10px;margin-left:6px;color:var(--map-muted)}
+.cityClock small{display:block;font-size:8px;color:var(--map-muted);margin-top:5px;letter-spacing:.1px}
+.landmarkRail{position:absolute;top:236px;left:18px;right:18px;z-index:4;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:1px 0 5px;touch-action:pan-x}
+.landmarkRail button{flex:0 0 auto;min-height:35px;border-radius:20px;padding:8px 11px;gap:5px;font-size:10px;border:1px solid var(--map-line);background:var(--map-glass);color:var(--map-ink);box-shadow:0 3px 10px #203c4510;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.landmarkRail .ic{width:12px;height:12px}
+.landmarkRail button[aria-pressed="true"]{border-color:#00b185;color:#008765;background:#e8fff6ed}
+.mapConnection{position:absolute;z-index:4;left:16px;right:70px;bottom:260px;padding:10px 12px;border-radius:14px;background:var(--map-glass);border:1px solid var(--map-line);box-shadow:0 5px 18px #17384712;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:10px;line-height:1.65;color:var(--map-muted)}
+.mapConnection b{display:block;color:var(--map-ink);font-size:11px;font-weight:600}
+.mapConnection button{font-size:10px;padding:3px 0;margin-top:3px;color:#009776;min-height:24px}
+.mapConnection[hidden]{display:none}
+.mapScreen[data-phase="night"]{--map-ink:#e4f0f2;--map-muted:#a0b9c1;--map-glass:#172f3be8;--map-line:#ffffff1f;background:#132731}
+.mapScreen[data-phase="night"] .mapcanvas{background:#172e3a}
+.mapScreen[data-phase="night"] .mapIllustration{filter:brightness(.48) saturate(.65) hue-rotate(10deg)}
+.mapScreen[data-phase="night"] .mapPlayer .mpTitle small,.mapScreen[data-phase="night"] .mapPlayer .extra,.mapScreen[data-phase="night"] .mapProgress,.mapScreen[data-phase="night"] .mapPlayer .heart{color:#a6c3ce}
+.mapScreen[data-phase="night"] .mpNext{color:#d8edf2}
+.mapScreen[data-phase="night"] .reasonChip{background:#244857d9;color:#b9dde6}
+.mapScreen[data-phase="night"] .landmarkRail button[aria-pressed="true"]{background:#164b45;color:#8eebc7}
+.mapScreen[data-phase="twilight"]{--map-ink:#493d46;--map-muted:#89767c;--map-glass:#fff4e8e6;--map-line:#ffffffbd;background:#f2e6db}
+.mapScreen[data-phase="twilight"] .mapIllustration{filter:sepia(.2) saturate(.8) brightness(.92)}
+.mapScreen[data-phase="twilight"] .reasonChip{background:#f0e1d9;color:#826575}
+.mapSetup{margin-top:18px;border:1px solid #dce8e3;background:#f5faf7;border-radius:14px;padding:13px;font-size:11px;line-height:1.8;color:#667c73}
+.mapSetup h3{margin:0 0 6px;color:#305e4f;font-size:13px}
+.mapSetup code{font-size:10px;color:#258569;overflow-wrap:anywhere}
+.mapSetup a{display:inline-block;margin-top:7px}
+@media(max-width:430px){.mapScreen .mapPlayer{bottom:max(62px,calc(env(safe-area-inset-bottom,0px) + 38px))}.mapScreen .mapcanvas{bottom:max(25px,env(safe-area-inset-bottom,0px))}}
+@media(max-width:350px){.cityClock{min-width:98px;padding:8px}.cityClock b{font-size:17px}.mapScreen .citychip{font-size:16px;padding:9px 11px}.landmarkRail{top:231px}}
+@media(prefers-reduced-transparency:reduce){.mapScreen .glass,.mapConnection,.landmarkRail button{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}.mapScreen[data-phase="night"] .glass,.mapScreen[data-phase="night"] .mapConnection,.mapScreen[data-phase="night"] .landmarkRail button{background:#172f3b}}
